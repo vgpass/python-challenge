@@ -1,4 +1,4 @@
-# Module 3 Challenge -- Python
+# Module 3 Challenge -- Python Poll Challenge
 # Vincent Passanisi, Due October 31, 2022
 
 # Import necessary modules
@@ -8,7 +8,7 @@ import os, csv
 # Create path for resources and output
 
 pollpath = "Resources/election_data.csv"
-poll_output = 'analysis/poll_result.txt'
+poll_output = "analysis/poll_result.txt"
 
 # Create global variables
 
@@ -20,6 +20,9 @@ candidate_total_votes = []
 candidate_total_votes.append(0)
 votes = 0
 c_votes = 0
+vote_total1 = 0
+vote_total2 = 0
+vote_total3 = 0
 
 # Open file with polling data
 
@@ -52,7 +55,7 @@ with open(pollpath) as pollfile:
             candidate.append(previous_candidate)
             previous_candidate = str(row[2])
             print(c_votes)
-            candidate_total_votes.append(c_votes)
+            candidate_total_votes.append(0)
             c_votes += 1
 
         if previous_candidate == current_candidate:
@@ -60,23 +63,34 @@ with open(pollpath) as pollfile:
             # print (candidate_total_votes[c_votes])
         previous_candidate = current_candidate
 
-    
-        
+    else:
+        candidate.append(current_candidate)
+
         # candidate_total_votes[row(0)] += 1
 
-for votes in candidate_total_votes:
-    print (votes)
+# Tally votes for each candidate from each county
 
-# Create output for subroutine
+for votes in range (0, 8, 3):
+    vote_total1 += candidate_total_votes[votes]
+    
+for votes in range (1, 8, 3):
+    vote_total2 += candidate_total_votes[votes]
+
+for votes in range (2, 8, 3):
+    vote_total3 += candidate_total_votes[votes]
+
+# Determine % of total vote that each candidate received
+
+# Create output for polling data and print
 
 output = f"""
 Election Results
   -------------------------
   Total Votes: {total_count}
   -------------------------
-  {candidate[0]}: 23.049% (85213)
-  {candidate[1]}: 73.812% (272892)
-  {candidate[2]}: 3.139% (11606)
+  {candidate[0]}: {(vote_total1 / total_count) * 100}% ({vote_total1})
+  {candidate[1]}: {(vote_total2 / total_count * 100)}% ({vote_total2})
+  {candidate[2]}: {(vote_total3 / total_count * 100)}% ({vote_total3})
   -------------------------
   Winner: Diana DeGette
   -------------------------
