@@ -13,11 +13,12 @@ poll_output = 'analysis/poll_result.txt'
 # Create global variables
 
 total_count = 0
-candidates_all = ""
+current_candidate = ""
 candidate = []
 previous_candidate = ""
 candidate_total_votes = []
 candidate_total_votes.append(0)
+votes = 0
 c_votes = 0
 
 # Open file with polling data
@@ -36,23 +37,35 @@ with open(pollpath) as pollfile:
 
     # Read each row of data after the header
     print(candidate_total_votes[0])
-    exit
+    
     for row in csvreader:
         # print(row)
         # break
         total_count += 1
-        candidates_all = str(row[2])
-        
-        if previous_candidate != "" and previous_candidate != candidates_all:
+        current_candidate = str(row[2])
+
+        if previous_candidate == "":
+            previous_candidate = current_candidate
+            print(previous_candidate)
+
+        if previous_candidate != current_candidate:
             candidate.append(previous_candidate)
             previous_candidate = str(row[2])
-            # candidate_total_votes += 1             
+            print(c_votes)
+            candidate_total_votes.append(c_votes)
+            c_votes += 1
 
-        previous_candidate = candidates_all
+        if previous_candidate == current_candidate:
+            candidate_total_votes[c_votes] += 1
+            # print (candidate_total_votes[c_votes])
+        previous_candidate = current_candidate
 
+    
+        
         # candidate_total_votes[row(0)] += 1
-        print (previous_candidate)
-                           
+
+for votes in candidate_total_votes:
+    print (votes)
 
 # Create output for subroutine
 
