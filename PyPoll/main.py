@@ -78,7 +78,8 @@ for votes in range (2, 9, 3):
 # Determine % of total vote that each candidate received
 
 # Create output for polling data and print
-
+print(vote_total3)
+print(total_count)
 output = f"""
 Election Results
   -------------------------
@@ -86,7 +87,7 @@ Election Results
   -------------------------
   {candidate[0]}: {round((vote_total1 / total_count),4) * 100}% ({"{:,}".format(vote_total1)})
   {candidate[1]}: {round((vote_total2 / total_count),4) * 100}% ({"{:,}".format(vote_total2)})
-  {candidate[2]}: {round((vote_total3 / total_count),3) * 100}% ({"{:,}".format(vote_total3)})
+  {candidate[2]}: {"{:.2f}".format((vote_total3 / total_count) * 100)}% ({"{:,}".format(vote_total3)})
   -------------------------
   Winner: Diana DeGette
   -------------------------
