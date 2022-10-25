@@ -41,7 +41,6 @@ with open(pollpath) as pollfile:
     # Read each row of data after the header
     for row in csvreader:
         # print(row)
-        # break
         total_count += 1
         current_candidate = str(row[2])
 
@@ -65,14 +64,15 @@ with open(pollpath) as pollfile:
         # candidate_total_votes[row(0)] += 1
 
 # Tally votes for each candidate from each county
+print(candidate_total_votes)
 
-for votes in range (0, 8, 3):
+for votes in range (0, 9, 3):
     vote_total1 += candidate_total_votes[votes]
     
-for votes in range (1, 8, 3):
+for votes in range (1, 9, 3):
     vote_total2 += candidate_total_votes[votes]
 
-for votes in range (2, 8, 3):
+for votes in range (2, 9, 3):
     vote_total3 += candidate_total_votes[votes]
 
 # Determine % of total vote that each candidate received
@@ -82,11 +82,11 @@ for votes in range (2, 8, 3):
 output = f"""
 Election Results
   -------------------------
-  Total Votes: {total_count}
+  Total Votes: {"{:,}".format(total_count)}
   -------------------------
-  {candidate[0]}: {(vote_total1 / total_count) * 100}% ({vote_total1})
-  {candidate[1]}: {(vote_total2 / total_count * 100)}% ({vote_total2})
-  {candidate[2]}: {(vote_total3 / total_count * 100)}% ({vote_total3})
+  {candidate[0]}: {round((vote_total1 / total_count),4) * 100}% ({"{:,}".format(vote_total1)})
+  {candidate[1]}: {round((vote_total2 / total_count),4) * 100}% ({"{:,}".format(vote_total2)})
+  {candidate[2]}: {round((vote_total3 / total_count),3) * 100}% ({"{:,}".format(vote_total3)})
   -------------------------
   Winner: Diana DeGette
   -------------------------
