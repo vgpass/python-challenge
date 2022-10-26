@@ -7,7 +7,7 @@ import os, csv
 
 # Create path for resources and output
 
-pollpath = "Resources/election_data.csv"
+pollpath = "PyPoll/Resources/election_data.csv"
 poll_output = "analysis/poll_result.txt"
 
 # Create global variables
@@ -85,9 +85,9 @@ Election Results
   -------------------------
   Total Votes: {"{:,}".format(total_count)}
   -------------------------
-  {candidate[0]}: {round((vote_total1 / total_count),4) * 100}% ({"{:,}".format(vote_total1)})
-  {candidate[1]}: {round((vote_total2 / total_count),4) * 100}% ({"{:,}".format(vote_total2)})
-  {candidate[2]}: {"{:.2f}".format((vote_total3 / total_count) * 100)}% ({"{:,}".format(vote_total3)})
+  {candidate[0]}: {round((vote_total1 / total_count),5) * 100}% ({"{:,}".format(vote_total1)})
+  {candidate[1]}: {round((vote_total2 / total_count),5) * 100}% ({"{:,}".format(vote_total2)})
+  {candidate[2]}: {"{:.3f}".format((vote_total3 / total_count) * 100)}% ({"{:,}".format(vote_total3)})
   -------------------------
   Winner: Diana DeGette
   -------------------------
