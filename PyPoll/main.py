@@ -8,7 +8,7 @@ import os, csv
 # Create path for resources and output
 
 pollpath = "PyPoll/Resources/election_data.csv"
-poll_output = "analysis/poll_result.txt"
+poll_output = "PyPoll/analysis/poll_result.txt"
 
 # Create global variables
 
@@ -31,16 +31,14 @@ with open(pollpath) as pollfile:
     # CSV reader specifies delimiter and variable that holds contents
 
     csvreader = csv.reader(pollfile, delimiter=',')
-    print(csvreader)
 
   # Read the header row first (skip this step if there is now header)
 
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
+    
     for row in csvreader:
-        # print(row)
         total_count += 1
         current_candidate = str(row[2])
 
@@ -55,16 +53,12 @@ with open(pollpath) as pollfile:
 
         if previous_candidate == current_candidate:
             candidate_total_votes[c_votes] += 1
-            # print (candidate_total_votes[c_votes])
         previous_candidate = current_candidate
 
     else:
         candidate.append(current_candidate)
 
-        # candidate_total_votes[row(0)] += 1
-
 # Tally votes for each candidate from each county
-print(candidate_total_votes)
 
 for votes in range (0, 9, 3):
     vote_total1 += candidate_total_votes[votes]
@@ -75,11 +69,18 @@ for votes in range (1, 9, 3):
 for votes in range (2, 9, 3):
     vote_total3 += candidate_total_votes[votes]
 
-# Determine % of total vote that each candidate received
+# Determine winner of election and assign to a variable called winner
+
+winner = ""
+if vote_total1 > vote_total2 and vote_total1 > vote_total3:
+    winner = candidate[0]
+if vote_total2 > vote_total1 and vote_total2 > vote_total3:
+    winner = candidate[1]
+if vote_total3 > vote_total1 and vote_total3 > vote_total2:
+    winner = candidate[2]
 
 # Create output for polling data and print
-print(vote_total3)
-print(total_count)
+
 output = f"""
 Election Results
   -------------------------
@@ -89,7 +90,11 @@ Election Results
   {candidate[1]}: {round((vote_total2 / total_count),5) * 100}% ({"{:,}".format(vote_total2)})
   {candidate[2]}: {"{:.3f}".format((vote_total3 / total_count) * 100)}% ({"{:,}".format(vote_total3)})
   -------------------------
-  Winner: Diana DeGette
+  Winner: {winner}
   -------------------------
 """
 print(output)
+
+# write the output to a new text file called poll_result.
+with open(poll_output, "w") as f:
+    f.write(output)

@@ -20,8 +20,8 @@ import os, csv
 
 # create path and open file for reading
 
-bankpath = "Resources/budget_data.csv"
-bankoutput = 'analysis/finance_result.txt'
+bankpath = "PyBank/Resources/budget_data.csv"
+bankoutput = 'PyBank/analysis/finance_result.txt'
 
 # Note: other way to create path: bankpath = os.path.join('Resources', 'budget_data.csv')
 
@@ -44,12 +44,10 @@ with open(bankpath) as bankfile:
     # CSV reader specifies delimiter and variable that holds contents
 
     csvreader = csv.reader(bankfile, delimiter=',')
-    print(csvreader)
 
     # Read the header row first (skip this step if there is now header)
 
     csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
 
     # Read each row of data after the header
     # row[0] is month
