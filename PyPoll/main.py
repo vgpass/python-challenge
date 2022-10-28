@@ -7,8 +7,8 @@ import os, csv
 
 # Create path for resources and output
 
-pollpath = "PyPoll/Resources/election_data.csv"
-poll_output = "PyPoll/analysis/poll_result.txt"
+pollpath = "Resources/election_data.csv"
+poll_output = "analysis/poll_result.txt"
 
 # Create global variables
 
