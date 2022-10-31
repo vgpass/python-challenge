@@ -1,5 +1,18 @@
 # Module 3 Challenge -- Python Poll Challenge
 # Vincent Passanisi, Due October 31, 2022
+# VERSION 2
+
+# I wasn't happy with my first attempt. This version creates a nested dictionary with all values from the election.
+# The nested dictionary has the following structure:
+#       County 1: Candidate 1: Vote Total
+#                 Candidate 2: Vote Total
+#                 Candidate 3: Vote Total
+#       County 2: Candidate 1: Vote Total
+#                 Candidate 2: Vote Total
+#                 Candidate 3: Vote Total
+#       County 3: Candidate 1: Vote Total
+#                 Candidate 2: Vote Total
+#                 Candidate 3: Vote Total
 
 # Import necessary modules
 
@@ -74,17 +87,17 @@ with open(pollpath) as pollfile:
 # Special thank you to my tutor, Saad Khan, for helping me with the logic of this after 2 days of frustration!
 # I would not have been able to figure this out on my own.
 
-candidate_dict = {}
-candidate_list = []
-for k, v in poll_result.items():
-    for x, y in v.items():
-        if x not in candidate_list:
-            candidate_list.append(x)
-            candidate_dict[x]=0
-        candidate_dict[x]+=y
+candidate_dict = {}              # create new dictionary to tally votes for each candidate in each county.
+candidate_list = []              # create new list to hold candidate names.
+for k, v in poll_result.items(): # Loop through dictionary to access nested values.
+    for x, y in v.items():       # Loop through keys in nested dictionaries. 
+        if x not in candidate_list: # Determines if the candidate is already in the list to avoid an error.
+            candidate_list.append(x) # Appends new candidate to the list if the name isn't already in the list.
+            candidate_dict[x]=0     # Assignes a value of zero on the first iteration of the loop.
+        candidate_dict[x]+=y        # Adds the county totals to each other for each candidate.
 
-total = sum(candidate_dict.values())
-result = {key: (value / total) * 100 for key, value in candidate_dict.items()}
+total = sum(candidate_dict.values()) # Totals the votes for all candidates. There is a second variable called total_count that does the same thing.
+result = {key: (value / total) * 100 for key, value in candidate_dict.items()} # Loop conditional to calculate the % of total vote that each candidate earned. 
 
 # Use conditional statements to determine which candidate has the most votes.
 # Assign the name of the candidate with the most votes to a variable "winner."
