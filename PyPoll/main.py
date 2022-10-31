@@ -8,7 +8,7 @@ import os, csv
 # Create path for resources and output
 
 pollpath = "Resources/election_data.csv"
-poll_output = "analysis/poll_result.txt"
+poll_output = "analysis/poll_result_v2.txt"
 
 # Create global variables
 
@@ -32,33 +32,37 @@ with open(pollpath) as pollfile:
 
     csvreader = csv.reader(pollfile, delimiter=',')
 
-  # Read the header row first (skip this step if there is now header)
+    # Read the header row first (skip this step if there is now header)
 
     csv_header = next(csvreader)
 
     # Read each row of data after the header
     
     for row in csvreader:
-        total_count += 1
-        current_candidate = str(row[2])
+        total_count += 1                    # Counter to determine total votes cast in election.
+        current_candidate = str(row[2])     # Setting the current_candidate variable to the candidate in the current row.
 
-        if previous_candidate == "":
+        if previous_candidate == "":        # For the first iteration only, set the previous_candidate variable to the current row.
             previous_candidate = current_candidate
+
+    # When the loop reaches a new candidate, append the list to add that new name. Update the previous candidate variable.
 
         if previous_candidate != current_candidate:
             candidate.append(previous_candidate)
             previous_candidate = str(row[2])
-            candidate_total_votes.append(0)
-            c_votes += 1
+            candidate_total_votes.append(0)     # This appends the vote count for the new candidate and starts the count at zero.
+            c_votes += 1                        # c_votes are the candidate votes. Adding a 1 for each vote counted.
+
+        # When continuing to count votes for a candidate in the current county, this conditional is true
 
         if previous_candidate == current_candidate:
-            candidate_total_votes[c_votes] += 1
-        previous_candidate = current_candidate
+            candidate_total_votes[c_votes] += 1 # Continue to add votes for the current candidate.
+        previous_candidate = current_candidate  # if the name has changed, then the previous_variable becomes the candidate for the current row.
 
     else:
-        candidate.append(current_candidate)
+        candidate.append(current_candidate)     # At the end of the loop, this was needed to add the final candidates name.
 
-# Tally votes for each candidate from each county
+# Tally votes for each candidate from each county. Because of the way the votes were ordered in the list, I needed to loop through the lists to tally the votes for each county.
 
 for votes in range (0, 9, 3):
     vote_total1 += candidate_total_votes[votes]
@@ -69,7 +73,8 @@ for votes in range (1, 9, 3):
 for votes in range (2, 9, 3):
     vote_total3 += candidate_total_votes[votes]
 
-# Determine winner of election and assign to a variable called winner
+# Determine winner of election and assign to a variable called winner.
+# Simple comparisons to determine which candidate had the most votes.
 
 winner = ""
 if vote_total1 > vote_total2 and vote_total1 > vote_total3:

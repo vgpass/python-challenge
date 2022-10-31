@@ -32,7 +32,7 @@ This repo contains the required files for the PyBank and PyPoll Python Challenge
 
         *Resources folder with election_data.csv
 
-        *analysis folder with poll_result.txt which contains the output of my python script.
+        *analysis folder with poll_result.txt and poll_result_v2.txt which contain the output of my python scripts.
 
 **Instructions** This folder contains the original files provided for the challenge
 

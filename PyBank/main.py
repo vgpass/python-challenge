@@ -20,8 +20,8 @@ import os, csv
 
 # create path and open file for reading
 
-bankpath = "PyBank/Resources/budget_data.csv"
-bankoutput = 'PyBank/analysis/finance_result.txt'
+bankpath = "Resources/budget_data.csv"
+bankoutput = 'analysis/finance_result.txt'
 
 # Note: other way to create path: bankpath = os.path.join('Resources', 'budget_data.csv')
 
